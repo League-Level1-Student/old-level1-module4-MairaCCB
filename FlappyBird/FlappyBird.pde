@@ -1,17 +1,15 @@
   float x = 250;
   float y = 250;
+  float width = 500;
+  float height = 500;
   float gravity = 0.5;
-  float birdYVelocity = 0;
+  float birdYVelocity = 50;
   float pipeXPosition = 500;
   int upperPipeHeight = (int) random(100, 300);
-  float upperY = 0;
-  float pipeGap= 70;
-  float lowerY = upperY + upperPipeHeight + pipeGap;
-  float birdY = y;
-  float birdX = x;
-  float lowerPipeTop = lowerY;
-  float pipeX = pipeXPosition;
+  float pipeGap = 140;
+  float lowerY;
   float pipeWidth = 50;
+  char text;
 
 
 void setup(){
@@ -20,53 +18,63 @@ void setup(){
 
 
 void draw(){
+lowerY = upperPipeHeight + pipeGap;
   
-  background(0, 0, 0); 
-  fill(7, 24, 200);
+background(0, 0, 0); 
+
+fill(7, 24, 200);
 stroke(70, 13, 76);
 ellipse(x, y, 40, 40);
 
 fill(200, 0, 100);
-rect(pipeXPosition, upperY, 50, upperPipeHeight);
+rect(pipeXPosition, 0, 50, upperPipeHeight);
 
-y += birdYVelocity;
-birdYVelocity += gravity;
+fill(100, 0, 200);
+rect(pipeXPosition, lowerY, 50, height - lowerY);
+
+fill(0, 200, 0);
+rect(0, 450, width, 50);
+
+if(x >= pipeXPosition){
+  text(text, 0, 0);
+}
+
+if(y >= height - 50){
+  System.exit(0);
+}
+
+y += gravity;
 
 pipeXPosition = pipeXPosition - 1;
 
 teleportPipes();
 
- if(pipeXPosition <= -50){
-  upperPipeHeight = (int) random(100, 300);
-  lowerY = upperY + upperPipeHeight + pipeGap;
-}
-  
-  fill(100, 0, 200);
-  rect(pipeXPosition, lowerY, 50, 500 - lowerY);
-  
-  teleportPipes();
-  
   if(intersectsPipes()){
-    
+    System.exit(0);
   }
   
 }
   
+  
   boolean intersectsPipes() { 
-     if (birdY < upperPipeHeight && birdX > pipeX && birdX < (pipeX+pipeWidth)){
+     if (y < upperPipeHeight && x > pipeXPosition && x < (pipeXPosition + pipeWidth)){
           return true; }
-     else if (birdY>lowerPipeTop && birdX > pipeX && birdX < (pipeX+pipeWidth)) {
+     else if (y > lowerY && x > pipeXPosition && x < (pipeXPosition + pipeWidth)) {
           return true; }
      else { return false; }
 
 }
 
+
 void mousePressed(){
-    birdYVelocity = -15;
+    y -= birdYVelocity;
 }
+
 
 void teleportPipes(){
   if(pipeXPosition < -50){
     pipeXPosition += 500;
+     upperPipeHeight = (int) random(100, 300);
+  lowerY = upperPipeHeight + pipeGap;
   }
 }

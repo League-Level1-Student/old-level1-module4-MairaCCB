@@ -10,7 +10,9 @@
   float lowerY;
   float pipeWidth = 50;
   char text;
-
+  float score = 0;  
+  
+  
 
 void setup(){
   size(500, 500);
@@ -36,7 +38,8 @@ fill(0, 200, 0);
 rect(0, 450, width, 50);
 
 if(x >= pipeXPosition){
-  text(text, 0, 0);
+  text(score, 10, 10);
+  
 }
 
 if(y >= height - 50){
@@ -52,7 +55,6 @@ teleportPipes();
   if(intersectsPipes()){
     System.exit(0);
   }
-  
 }
   
   
@@ -76,5 +78,6 @@ void teleportPipes(){
     pipeXPosition += 500;
      upperPipeHeight = (int) random(100, 300);
   lowerY = upperPipeHeight + pipeGap;
+  score = score + 10;
   }
 }

@@ -1,12 +1,13 @@
 int x = 200;
-int y = 350;
-int w = 350;
+int y = 370;
+int w = 450;
 
-Car A = new Car(350, 300, 15, 5);
-Car B = new Car(15, 45, 15, 10);
-Car C = new Car(125, 15, 15, 5);
-Car D = new Car(34, 225, 15, 15);
-Car E = new Car(375, 145, 15, 3);
+Car A = new Car(125, 35, 15, 5); 
+Car B = new Car(15, 95, 15, 8); 
+Car C = new Car(375, 175, 15, 3); 
+Car D = new Car(34, 250, 15, 7); 
+Car E = new Car(350, 325, 15, 4); 
+
 
 void setup(){
   size(400, 400);
@@ -16,7 +17,8 @@ void setup(){
 void draw(){
   background(0, 0, 0);
   
-  fill(0, 100, 255);
+  fill(0, 200, 255);
+  stroke(0, 200, 255);
   ellipse(x, y, 30, 30);
   
   boundries();
@@ -28,17 +30,25 @@ void draw(){
   E.display();
   
   A. moveLeft();
-  B. moveRight();
-  C. moveLeft();
-  D. moveRight();
-  E. moveLeft();
-  
   A.display();
+   
+  B. moveRight();
   B.display();
+  
+  C. moveLeft();
   C.display();
+  
+  D. moveRight();
   D.display();
+  
+  E. moveLeft();
   E.display();
   
+  
+if(intersects(A) || intersects(B) || intersects(C) || intersects(D) || intersects(E)){
+  y = 370;
+  x = 200;
+}
 
 
 }
@@ -90,23 +100,24 @@ public class Car {
   int CarSpeed;
   
   void display() {
-      fill(0, 255, 0);
+      fill(105, 0, 205);
+      stroke(105, 0, 205);
       rect(CarX, CarY, 50, CarSize);
 }
 
 void moveLeft(){
   CarX = CarX - CarSpeed;
   
-  if(CarX < 0){
-    CarX = 0;
+  if(CarX < -50){
+    CarX = 400;
   }
 }
 
 void moveRight(){
   CarX = CarX + CarSpeed;
   
-  if(CarX > w){
-    CarX = w;
+  if(CarX > 450){
+    CarX = 0;
   }
 }
 
@@ -132,7 +143,7 @@ int getSize(){
 }
 
 boolean intersects(Car car) {
-      if ((y > car.getY() && y < car.getY()+50) && (x > car.getX() && x < car.getX()+car.getSize()))
+      if ((y > car.getY() && y < car.getY()+30) && (x > car.getX() && x < car.getX()+car.getSize()))
       {
              return true;
       }
